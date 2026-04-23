@@ -209,6 +209,10 @@ ul {
   justify-content: flex-start;
 }
 
+.label-mobile {
+  display: none;
+}
+
 .contact-brand-icon {
   display: inline-flex;
   align-items: center;
@@ -1252,8 +1256,14 @@ ul {
     gap: 10px;
   }
 
+  .brand-copy {
+    min-width: 0;
+  }
+
   .brand-subtitle {
-    display: none;
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
   }
 
   .hero-section {
@@ -1288,16 +1298,34 @@ ul {
     margin-bottom: 32px;
   }
 
-  .contact-call-row,
-  .contact-platform-row,
   .field-grid {
     grid-template-columns: 1fr;
+  }
+
+  .contact-call-row,
+  .contact-platform-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .contact-platform-row .btn,
   .contact-call-row .btn,
   .contact-actions > .btn {
     width: 100%;
+  }
+
+  .contact-call-row .btn,
+  .contact-platform-row .btn {
+    min-height: 50px;
+    padding-inline: 18px;
+    font-size: 0.88rem;
+  }
+
+  .contact-platform-row .label-full {
+    display: none;
+  }
+
+  .contact-platform-row .label-mobile {
+    display: inline;
   }
 
   .form-submit {
@@ -1405,6 +1433,26 @@ ul {
   .floating-whatsapp {
     width: 59.8px;
     height: 59.8px;
+  }
+
+  .contact-call-row,
+  .contact-platform-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .contact-call-row .btn,
+  .contact-platform-row .btn {
+    min-height: 48px;
+    padding-inline: 12px;
+    font-size: 0.8rem;
+    gap: 8px;
+  }
+
+  .contact-brand-icon {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
   }
 }
 
