@@ -5,6 +5,7 @@ const mobileMenu = document.getElementById("mobile-menu");
 const contactForm = document.getElementById("contact-form");
 const contactFormFields = document.getElementById("contact-form-fields");
 const contactFormSuccess = document.getElementById("contact-form-success");
+const contactFormStatus = document.getElementById("contact-form-status");
 const currentYear = document.getElementById("current-year");
 
 function updateScrollState() {
@@ -69,10 +70,52 @@ document.querySelectorAll("#mobile-menu a").forEach((link) => {
 });
 
 if (contactForm && contactFormFields && contactFormSuccess) {
-  contactForm.addEventListener("submit", (event) => {
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  const defaultButtonLabel = submitButton ? submitButton.innerHTML : "";
+
+  contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    contactFormFields.hidden = true;
-    contactFormSuccess.hidden = false;
+
+    if (!submitButton) {
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+
+    if (contactFormStatus) {
+      contactFormStatus.hidden = true;
+      contactFormStatus.textContent = "";
+    }
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: new FormData(contactForm),
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Something went wrong. Please try again.");
+      }
+
+      contactForm.reset();
+      contactFormFields.hidden = true;
+      contactFormSuccess.hidden = false;
+    } catch (error) {
+      if (contactFormStatus) {
+        contactFormStatus.textContent =
+          error instanceof Error ? error.message : "Something went wrong. Please try again.";
+        contactFormStatus.hidden = false;
+      }
+    } finally {
+      submitButton.disabled = false;
+      submitButton.innerHTML = defaultButtonLabel;
+    }
   });
 }
 

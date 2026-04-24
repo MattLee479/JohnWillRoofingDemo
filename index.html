@@ -405,7 +405,31 @@
               </div>
             </div>
 
-            <form class="reveal card-jw contact-form" id="contact-form">
+            <form
+              class="reveal card-jw contact-form"
+              id="contact-form"
+              action="https://api.web3forms.com/submit"
+              method="POST"
+            >
+              <input type="hidden" name="access_key" value="9178136a-4298-4de0-ac59-d7f61b191571" />
+              <input
+                type="hidden"
+                name="subject"
+                value="New quote request from John and Wills Roofing and Guttering"
+              />
+              <input
+                type="hidden"
+                name="from_name"
+                value="John and Wills Roofing and Guttering Website"
+              />
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabindex="-1"
+                autocomplete="off"
+                hidden
+                aria-hidden="true"
+              />
               <div id="contact-form-fields">
                 <div class="field">
                   <label class="field-label" for="name"
@@ -448,6 +472,7 @@
                 <p class="form-note">
                   No obligation. We'll only use your details to reply about your job.
                 </p>
+                <p class="form-note" id="contact-form-status" hidden aria-live="polite"></p>
               </div>
 
               <div class="form-success" id="contact-form-success" hidden>
